@@ -63,12 +63,15 @@ html {
   font-size: 62.5%;
   height: 100%;
 }
-/* @media screen and (min-width: 600px) {
-  html {
-    font-size: 100%;
-  }
-} */
 
 body {
   background-color: var(--blue);
+}
+.container {
+  /* display: flex; */
+  text-align: center;
+  width: 100%;
+  padding-inline: calc(1.6rem * 0.5);
+  margin-right: auto;
+  margin-left: auto;
 }
