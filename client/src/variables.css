@@ -1,0 +1,18 @@
+:root {
+  /* Colours */
+  --primary: #ec4b71;
+  --info: #221a36;
+  --success: #7c915a;
+  --warning: #f98122;
+  --danger: #f44336;
+  --grey: #c6c9c3;
+  --light: #fbfef8;
+
+  /* Fonts */
+  --mainFont: 'Merriweather', serif;
+  --textFont: 'Ubuntu', sans-serif;
+  --smallFont: 'Roboto Slab', serif;
+}
+/* font-family: 'Merriweather', serif;
+font-family: 'Roboto Slab', serif;
+font-family: 'Ubuntu', sans-serif; */
