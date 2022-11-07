@@ -9,12 +9,14 @@ module.exports = {
     }
   },
   videogamePostController(req, res) {
-    const { id, name, background_image } = req.body;
-    if ((id, name, background_image)) {
+    const { id, name, background_image, released, rating } = req.body;
+    if ((id, name, background_image, released, rating)) {
       const newVideogame = {
         id,
         name,
         background_image,
+        released,
+        rating,
       };
       //!sent to the db
       return res.send({ msg: 'videogame created successfully' });
