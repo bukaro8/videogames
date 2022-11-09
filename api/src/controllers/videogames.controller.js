@@ -17,13 +17,11 @@ const videogameObj = (data) => {
   };
 };
 
-const getApiInfo = () => {
+const getApiInfo = async () => {
   let page = 0; //every page contains 20 items. Use line 38 to set how many pages you want (20 X page)
   let allData = [];
   let validNext = null;
-  const addingPages = async (
-    url = '/games?key=b0be862a878045a88d30b898cfb9aa1f'
-  ) => {
+  const addingPages = async (url = `/games?key=${API_KEY}`) => {
     let result = await rawg.get(url);
     const { data } = await result;
     const dataToMap = await data.results;
@@ -37,34 +35,41 @@ const getApiInfo = () => {
     if (validNext && page <= 4) {
       return addingPages(`${validNext}&page=${page + 1}`); //it will call itself until reach 5pages
     }
+    console.log(allData);
   };
   addingPages();
 };
 getApiInfo();
-//     result = await axios.get(
-//       `https://api.rawg.io/api/games?key=b0be862a878045a88d30b898cfb9aa1f&page=${
-//         page + 1
-//       }`
-//     );
-//     page = page + 1;
-//     console.log(allData);
-//   } while (page <= 2);
-//   // console.log(allData);
-//   // return allData;
+// const getDbInfo = async () => {
+//   return await Videogame.findAll({
+//     include: {
+//       model: Genre,
+//       attributes: ['name'],
+//       through: {
+//         attributes: [],
+//       },
+//     },
+//   });
 // };
-// getApiInfo();
-// ==============
-// const videogamesController = (req, res) => {
-//   const { name } = req.query;
+// const getAllGames = async () => {
+//   const apiInfo = await getApiInfo();
+//   const dbInfo = await getDbInfo();
+//   const totalInfo = [...apiInfo, ...dbInfo];
+//   return totalInfo;
+// };
 
-//   if (name) {
-//     try {
-//       const filterByName = (name) => {};
-//       return res.status(200).send(filterByName);
-//     } catch (error) {
-//       return res.status(400).send({ error: error.message });
-//     }
-//   }
-//   res.send({ msg: 'videogames route without query' });
-// };
-// module.exports = videogamesController;
+// ==============
+const videogamesController = (req, res) => {
+  const { name } = req.query;
+
+  if (name) {
+    try {
+      const filterByName = (name) => {};
+      return res.status(200).send(filterByName);
+    } catch (error) {
+      return res.status(400).send({ error: error.message });
+    }
+  }
+  res.send({ msg: 'videogames route without query' });
+};
+module.exports = videogamesController;
