@@ -4,6 +4,7 @@ const axios = require('axios');
 const { Videogame } = require('../db.js'); //bring the model
 const { API_KEY } = process.env;
 console.log(API_KEY);
+console.log(API_KEY);
 // const videogameObj = (data) => {
 //   return {
 //     id: data.id,
