@@ -3,44 +3,57 @@ const rawg = require('../apiCreator/rawg'); //this is the axios.create
 const axios = require('axios');
 const { Videogame } = require('../db.js'); //bring the model
 const { API_KEY } = process.env;
-console.log(API_KEY);
-console.log(API_KEY);
-// const videogameObj = (data) => {
-//   return {
-//     id: data.id,
-//     name: data.name,
-//     description: data.description,
-//     released: data.released,
-//     rating: data.rating,
-//     createdInDb: data.createdInDb,
-//     background_image: data.background_image,
-//   };
-// };
+// console.log(API_KEY);
 
-// const getApiInfo = async () => {
-//   let url = `/games?key=b0be862a878045a88d30b898cfb9aa1f`;
-//   const result = await rawg.get(url);
-//   const data = result.data;
-//   let page = 1;
-//   let allData = [];
-//   let pages = 1;
-//   do {
-//     const pageData = data.results.map((el) => {
-//       videogameObj(el);
-//     });
-//     allData = [...allData, pageData];
-//     pages += 1;
-//     const result = await axios.get(
+const videogameObj = (data) => {
+  return {
+    id: data.id,
+    name: data.name,
+    description: data.slug,
+    released: data.released,
+    rating: data.rating,
+    createdInDb: data.createdInDb,
+    background_image: data.background_image,
+  };
+};
+
+const getApiInfo = () => {
+  let page = 0; //every page contains 20 items. Use line 38 to set how many pages you want (20 X page)
+  let allData = [];
+  let validNext = null;
+  const addingPages = async (
+    url = '/games?key=b0be862a878045a88d30b898cfb9aa1f'
+  ) => {
+    let result = await rawg.get(url);
+    const { data } = await result;
+    const dataToMap = await data.results;
+    validNext = await data.next;
+    // console.log('abajo ' + validNext);
+    const pageData = dataToMap.map((element) => {
+      return videogameObj(element);
+    });
+    allData.push(...pageData);
+    page = page + 1;
+    if (validNext && page <= 4) {
+      return addingPages(`${validNext}&page=${page + 1}`); //it will call itself until reach 5pages
+    }
+  };
+  addingPages();
+};
+getApiInfo();
+//     result = await axios.get(
 //       `https://api.rawg.io/api/games?key=b0be862a878045a88d30b898cfb9aa1f&page=${
-//         pages + 1
+//         page + 1
 //       }`
 //     );
-//   } while (pages <= 5);
-//   console.log(allData);
+//     page = page + 1;
+//     console.log(allData);
+//   } while (page <= 2);
+//   // console.log(allData);
 //   // return allData;
 // };
 // getApiInfo();
-
+// ==============
 // const videogamesController = (req, res) => {
 //   const { name } = req.query;
 
