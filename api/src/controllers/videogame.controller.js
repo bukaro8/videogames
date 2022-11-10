@@ -1,9 +1,16 @@
+require('dotenv').config();
+const rawg = require('../apiCreator/rawg'); //this is the axios.create
+const { Videogame, Genre } = require('../db.js'); //bring the model
+const { API_KEY } = process.env;
+
 module.exports = {
   videogameGetController(req, res) {
     const id = req.params.id;
     try {
-      const findById = (id) => {};
-      res.status(200).send(findById);
+      if (id) {
+        const findById = (id) => {};
+        res.status(200).send(findById);
+      }
     } catch (error) {
       res.status(404).send({ error: error.message });
     }

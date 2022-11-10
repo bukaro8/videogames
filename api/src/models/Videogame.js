@@ -17,7 +17,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       released: {
@@ -31,6 +31,9 @@ module.exports = (sequelize) => {
 
       background_image: {
         type: DataTypes.STRING,
+      },
+      platform: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
       },
     },
     {
