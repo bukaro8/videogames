@@ -1,32 +1,53 @@
 require('dotenv').config();
 const rawg = require('../apiCreator/rawg'); //this is the axios.create
+// const videogameObj = require('./videogameObjCreator.js'); //reusable function to create normalized game objects
 const { Videogame, Genre } = require('../db.js'); //bring the model
 const { API_KEY } = process.env;
-
+const bringPlatform = async (data) => {
+  const platformsArr = await data.platforms.map((ele) => ele.platform.name);
+  return platformsArr;
+};
+const videogameObj = async (data) => {
+  const platforms = await bringPlatform(data);
+  return {
+    id: data.id,
+    name: data.name,
+    description: data.description,
+    released: data.released,
+    rating: data.rating,
+    createdInDb: data.createdInDb,
+    background_image: data.background_image,
+    platforms: platforms,
+  };
+};
 module.exports = {
-  videogameGetController(req, res) {
+  async videogameGetController(req, res) {
     const id = req.params.id;
     try {
       if (id) {
-        const findById = (id) => {};
-        res.status(200).send(findById);
+        const result = await rawg.get(`/games/${id}?key=${API_KEY}`);
+        const { data } = result;
+        const refinedData = await videogameObj(data);
+        res.status(200).send(refinedData);
       }
     } catch (error) {
       res.status(404).send({ error: error.message });
     }
   },
-  videogamePostController(req, res) {
-    const { id, name, background_image, released, rating } = req.body;
-    if ((id, name, background_image, released, rating)) {
+
+  async videogamePostController(req, res) {
+    const { name, background_image, released, rating, description } = req.body;
+    if ((name, background_image, released, rating, description)) {
       const newVideogame = {
-        id,
+        description,
         name,
         background_image,
         released,
         rating,
       };
+      await Videogame.create(newVideogame);
       //!sent to the db
-      return res.send({ msg: 'videogame created successfully' });
+      return res.status(200).send({ msg: 'videogame created successfully' });
     }
     res.status(400).send({ error: 'you must add the data' });
   },

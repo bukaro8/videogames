@@ -1,6 +1,8 @@
 require('dotenv').config();
 const rawg = require('../apiCreator/rawg'); //this is the axios.create
+
 const { Videogame, Genre } = require('../db.js'); //bring the model
+const { videogamePostController } = require('./videogame.controller');
 const { API_KEY } = process.env;
 // console.log(API_KEY);
 
@@ -13,6 +15,7 @@ const bringPlatform = async (data) => {
   const platformsArr = await data.platforms.map((ele) => ele.platform.name);
   return platformsArr;
 };
+
 // bringDescriptionById(4828);test
 const videogameObj = async (data) => {
   const description = await bringDescriptionById(data.id);
@@ -92,21 +95,61 @@ const findOnDb = async (name) => {
   );
   return result;
 };
-
-const videogamesController = async (req, res) => {
-  const totalGames = await getAllGames();
-  console.log(totalGames.length);
-  // await Videogame.bulkCreate(totalGames, { validate: true });
-  const { name } = req.query;
-  if (name) {
-    const dbResult = await findOnDb(name);
-    const apiResult = await findOnApi(name);
-    const filterByName = dbResult.concat(apiResult);
-    if (filterByName.length > 0) {
-      return res.status(200).send(filterByName);
+module.exports = {
+  async videogamesController(req, res) {
+    const totalGames = await getAllGames();
+    console.log(totalGames.length);
+    // await Videogame.bulkCreate(totalGames, { validate: true });
+    const { name } = req.query;
+    if (name) {
+      const dbResult = await findOnDb(name);
+      const apiResult = await findOnApi(name);
+      const filterByName = dbResult.concat(apiResult);
+      if (filterByName.length > 0) {
+        return res.status(200).send(filterByName);
+      }
+      return res
+        .status(404)
+        .send({ error: 'there is not match with that term' });
     }
-    return res.status(404).send({ error: 'there is not match with that term' });
-  }
-  res.send(totalGames);
+    res.send(totalGames);
+  },
+  async videogamesPutController(req, res) {
+    //must receive parameter by body name
+    const nameToSearch = req.body.name;
+    const { newName, background_image, released, description, rating } =
+      req.body;
+    if (nameToSearch) {
+      // const findName = await Videogame.findOne({
+      //   where: { name: nameToSearch },
+      // });
+      const updateByName = await Videogame.update(
+        {
+          name: newName,
+          background_image: background_image,
+          released: released,
+          description: description,
+          rating: rating,
+        },
+        { where: { name: nameToSearch } }
+      );
+      await updateByName;
+      return res.status(200).send({ msg: 'Videogame has been updated' });
+    }
+    res.status(404).send({ msg: 'you must type a name' });
+  },
+  async videogameDeleteController(req, res) {
+    const idToSearch = req.body.id;
+    try {
+      if (idToSearch) {
+        const findByID = await Videogame.findOne({
+          where: { id: idToSearch },
+        });
+        findByID.destroy();
+        return res.status(200).send({ msg: 'Videogame has been deleted' });
+      }
+    } catch (error) {
+      res.status(400).send({ error: error.message });
+    }
+  },
 };
-module.exports = videogamesController;
