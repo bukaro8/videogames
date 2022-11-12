@@ -11,17 +11,35 @@
   border-radius: 0.6rem;
   cursor: pointer;
   min-width: 6rem;
-  transition: color 1.15s ease-in-out, background-color 0.5s ease-in-out;
+  transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
 }
 .primary {
   background-color: var(--primary);
+  border: 0, 5rem solid var(--primary);
 }
 .primary:hover {
   background-color: #c33456;
 }
 .info {
   background-color: #3a207b;
+  border: 0, 5rem solid #3a207b;
 }
 .info:hover {
   background-color: var(--info);
+}
+.light {
+  background-color: rgba(255, 255, 255, 0);
+  color: var(--light);
+  border: 0.1rem solid var(--light);
+}
+.light:hover {
+  background-color: var(--light);
+  color: var(--info);
+}
+.danger {
+  background-color: var(--danger);
+  border: 0, 5rem solid red;
+}
+.primary:hover {
+  background-color: #c33455a4;
 }

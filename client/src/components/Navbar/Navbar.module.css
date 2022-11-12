@@ -1,0 +1,17 @@
+nav {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #221a367c;
+  width: 100vw;
+  /* height: 10rem; */
+}
+.logoContainer {
+  margin-block-start: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 12rem;
+  height: 8rem;
+}
