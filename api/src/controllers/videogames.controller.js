@@ -80,7 +80,6 @@ const getAllGames = async () => {
 const findOnApi = async (term) => {
   const result = await rawg.get(`/games?key=${API_KEY}&search=${term}`);
   const dataToMap = await result.data.results;
-
   const refineData = await Promise.all(
     dataToMap.map((element) => {
       return videogameObj(element);
@@ -95,6 +94,7 @@ const findOnDb = async (name) => {
   );
   return result;
 };
+
 module.exports = {
   async videogamesController(req, res) {
     const totalGames = await getAllGames();

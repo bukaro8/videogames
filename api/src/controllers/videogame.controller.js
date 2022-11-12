@@ -20,15 +20,29 @@ const videogameObj = async (data) => {
     platforms: platforms,
   };
 };
+
+const findOnDb = async (idFind) => {
+  const result = await Videogame.findOne({ where: { id: idFind } });
+
+  return result;
+};
+const findOnApi = async (id) => {
+  const result = await rawg.get(`/games/${id}?key=${API_KEY}`);
+  const { data } = result;
+  const refinedData = await videogameObj(data);
+  return refinedData;
+};
 module.exports = {
   async videogameGetController(req, res) {
     const id = req.params.id;
     try {
       if (id) {
-        const result = await rawg.get(`/games/${id}?key=${API_KEY}`);
-        const { data } = result;
-        const refinedData = await videogameObj(data);
-        res.status(200).send(refinedData);
+        if (id.length > 5) {
+          const foundOnDb = await findOnDb(id);
+          if (foundOnDb) return res.status(200).send(foundOnDb);
+        }
+        const foundOnApi = await findOnApi(id);
+        if (foundOnApi) return res.status(200).send(foundOnApi); //?one of them is empty
       }
     } catch (error) {
       res.status(404).send({ error: error.message });
