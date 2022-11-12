@@ -99,7 +99,7 @@ module.exports = {
   async videogamesController(req, res) {
     const totalGames = await getAllGames();
     console.log(totalGames.length);
-    // await Videogame.bulkCreate(totalGames, { validate: true });
+    //!in case you get a name by query
     const { name } = req.query;
     if (name) {
       const dbResult = await findOnDb(name);
@@ -115,7 +115,7 @@ module.exports = {
     res.send(totalGames);
   },
   async videogamesPutController(req, res) {
-    //must receive parameter by body name
+    //*must receive parameter by body name
     const nameToSearch = req.body.name;
     const { newName, background_image, released, description, rating } =
       req.body;

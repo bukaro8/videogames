@@ -9,6 +9,7 @@ const {
 const {
   videogamePostController,
 } = require('../controllers/videogame.controller');
+
 router.get('/', videogamesController);
 router.post('/', videogamePostController);
 router.put('/', videogamesPutController);

@@ -36,7 +36,8 @@ module.exports = {
   },
 
   async videogamePostController(req, res) {
-    const { name, background_image, released, rating, description } = req.body;
+    const { name, background_image, released, rating, description, platform } =
+      req.body;
     if ((name, background_image, released, rating, description)) {
       const newVideogame = {
         description,
@@ -44,6 +45,7 @@ module.exports = {
         background_image,
         released,
         rating,
+        platform,
       };
       await Videogame.create(newVideogame);
       //!sent to the db

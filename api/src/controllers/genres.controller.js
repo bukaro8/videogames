@@ -9,27 +9,18 @@ const getDbInfo = async () => {
 };
 
 const getApiData = async () => {
-  const hasBeenFilled = await getDbInfo();
-  console.log(hasBeenFilled);
-  const fillingBD = async () => {
-    const result = await rawg.get(`/genres?key=${API_KEY}`);
-    const data = await result.data.results;
-    const refinedData = await data.map((el) => {
-      return {
-        id: el.id,
+  let result = await rawg.get(`/genres?key=${API_KEY}`);
+  let results = result.data.results;
+  results.forEach((el) => {
+    Genre.findOrCreate({
+      where: { name: el.name },
+      defaults: {
         name: el.name,
-      };
+        id: el.id,
+      },
     });
-    await Genre.bulkCreate(refinedData);
-    const allDataFromDb = await Genre.findAll();
-    // console.log('all  adentro data form db ' + allDataFromDb);
-    return allDataFromDb;
-  };
-  if (!hasBeenFilled) {
-    await fillingBD();
-  }
-  const allDataFromDb = await Genre.findAll();
-  // console.log('all  afuera data f db ' + allDataFromDb);
+  });
+  let allDataFromDb = await Genre.findAll();
   return allDataFromDb;
 };
 
@@ -42,3 +33,26 @@ const genres = async (req, res) => {
   }
 };
 module.exports = genres;
+
+// const hasBeenFilled = await getDbInfo();
+//   console.log(hasBeenFilled);
+//   const fillingBD = async () => {
+//     const result = await rawg.get(`/genres?key=${API_KEY}`);
+//     const data = await result.data.results;
+//     const refinedData = await data.map((el) => {
+//       return {
+//         id: el.id,
+//         name: el.name,
+//       };
+//     });
+//     await Genre.bulkCreate(refinedData);
+//     const allDataFromDb = await Genre.findAll();
+//     // console.log('all  adentro data form db ' + allDataFromDb);
+//     return allDataFromDb;
+//   };
+//   if (!hasBeenFilled) {
+//     await fillingBD();
+//   }
+//   const allDataFromDb = await Genre.findAll();
+//   // console.log('all  afuera data f db ' + allDataFromDb);
+//   return allDataFromDb;
