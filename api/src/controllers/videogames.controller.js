@@ -29,6 +29,7 @@ const videogameObj = async (data) => {
     createdInDb: data.createdInDb,
     background_image: data.background_image,
     platforms: platforms,
+    genres: data.genres?.map((el) => el.name),
   };
 };
 
