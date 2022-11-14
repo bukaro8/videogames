@@ -1,7 +1,7 @@
 import back from '../../api/back.js';
 import { ADD_VIDEOGAME } from '../action-types';
 
-export const add_videogame = (values) => {
+export const addVideogame = (values) => {
   return async (dispatch, getState) => {
     try {
       const response = await back.post('/videogames', values);

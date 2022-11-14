@@ -1,6 +1,6 @@
-import Input from './components/utilities/input/Input';
 import './reset.css';
 import './variables.css';
+import Input from './components/utilities/input/Input';
 // import Button from './components/utilities/Button/Button';
 // import LandingPage from './components/landingPage/LandingPage';
 // import { Router } from 'react-router-dom';

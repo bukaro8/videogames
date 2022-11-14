@@ -8,7 +8,8 @@ import {
   SORT_BY_NAME,
   CLEAR_SEARCH_BY_NAME,
   CLEAR_SEARCH_BY_ID,
-} from '../actions';
+} from '../action-types/index.js';
+
 const initialState = {
   allVideogames: [],
   allVideogamesMirror: [],
@@ -126,12 +127,14 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         foundVideogameByNameMirror: [],
+        foundVideogameByName: [],
       };
     case CLEAR_SEARCH_BY_ID:
       return {
         ...state,
         foundVideogameById: [],
       };
+
     default:
       return { ...state };
   }
