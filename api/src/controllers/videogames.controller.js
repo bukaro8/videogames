@@ -115,6 +115,7 @@ module.exports = {
     }
     res.send(totalGames);
   },
+
   async videogamesPutController(req, res) {
     //*must receive parameter by body name
     const nameToSearch = req.body.name;

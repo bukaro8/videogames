@@ -59,7 +59,9 @@ module.exports = {
       background_image,
     } = req.body;
     if (!name || !description || !platform) {
-      return res.status(404).send('Faltan datos obligatorios');
+      return res
+        .status(404)
+        .send({ error: 'You must fill all the fields with *' });
     }
     try {
       let newVideogame = await Videogame.create({
@@ -79,36 +81,4 @@ module.exports = {
       return res.status(404).send({ error: error.message });
     }
   },
-
-  //   async videogamePostController(req, res) {
-  //     const {
-  //       name,
-  //       background_image,
-  //       released,
-  //       rating,
-  //       description,
-  //       platform,
-  //       genres,
-  //     } = req.body;
-  //     if ((name, background_image, released, rating, description)) {
-  //       const newVideogame = {
-  //         description,
-  //         name,
-  //         background_image,
-  //         released,
-  //         rating,
-  //         platform,
-  //       };
-  //       await Videogame.create(newVideogame);
-  //       genres.forEach(async (el) => {
-  //         let genreToAdd = await Genre.findOne({
-  //           where: { name: el },
-  //         });
-  //         await newVideogame.addGenre(genreToAdd);
-  //       });
-  //       //!sent to the db
-  //       return res.status(200).send({ msg: 'videogame created successfully' });
-  //     }
-  //     res.status(400).send({ error: 'you must add the data' });
-  //   },
 };

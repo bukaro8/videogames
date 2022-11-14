@@ -1,12 +1,12 @@
 import back from '../../api/back.js';
-import { LOAD_API } from '../action-types';
+import { LOAD_API_GAMES } from '../action-types';
 
 export const fetch_info = () => {
   return async (dispatch, getState) => {
     try {
       const response = await back.get('/videogames');
       dispatch({
-        type: LOAD_API,
+        type: LOAD_API_GAMES,
         payload: response.data,
       });
     } catch (error) {
