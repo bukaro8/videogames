@@ -1,0 +1,12 @@
+import { React, useEffect, useState } from 'react';
+import style from './Home.module.css';
+
+const Home = () => {
+  return (
+    <div>
+      <h1 className={style.title}>im the title</h1>
+    </div>
+  );
+};
+
+export default Home;
