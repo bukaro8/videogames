@@ -1,0 +1,20 @@
+.mainContainer {
+  display: flex;
+  justify-content: space-around;
+  z-index: 1;
+  background-color: #221a367c;
+  background-color: #221a367c;
+  width: 100vw;
+  height: 5rem;
+}
+.label {
+  font-size: 1.6rem;
+  font-family: var(--mainFont);
+  margin-inline-end: 2rem;
+  color: var(--light);
+}
+article {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

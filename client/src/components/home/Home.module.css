@@ -1,3 +1,10 @@
-.title {
-  font-size: 1.8rem;
+.mainContainer {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  justify-content: center;
+  box-sizing: border-box;
 }

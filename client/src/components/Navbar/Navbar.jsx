@@ -9,8 +9,8 @@ const Navbar = () => {
         <img className={styles.logo} src={logo} alt='logo' />
       </div>
       <ul>
-        <Link to=''>Home</Link>
-        <Link to=''>Add Videogame</Link>
+        <Link to='/home'>Home</Link>
+        <Link to='/videogames'>Add Videogame</Link>
         <Link to=''>find Videogame</Link>
         <Link to=''>edit Videogame</Link>
       </ul>
