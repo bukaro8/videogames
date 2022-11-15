@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 .mainContainer {
   display: flex;
   justify-content: space-around;
@@ -6,9 +9,11 @@
   background-color: #221a367c;
   width: 100vw;
   height: 5rem;
+  min-height: fit-content;
+  flex-wrap: wrap;
 }
 .label {
-  font-size: 1.6rem;
+  font-size: 150%;
   font-family: var(--mainFont);
   margin-inline-end: 2rem;
   color: var(--light);
@@ -17,4 +22,5 @@ article {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 }

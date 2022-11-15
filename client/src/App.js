@@ -1,20 +1,29 @@
 import './reset.css';
 import './variables.css';
-// import Input from './components/utilities/input/Input';
+import style from './App.module.css';
 import Home from './components/home/Home';
-// import Button from './components/utilities/Button/Button';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import LandingPage from './components/landingPage/LandingPage';
-import { Router, Switch } from 'react-router-dom';
+import { Link, Switch, Route } from 'react-router-dom';
+import actions from './REDUX/actions';
+import Navbar from './components/Navbar/Navbar';
 
 function App() {
+  const dispatch = useDispatch();
+  const allVideogames = useSelector((state) => state.allVideogames);
+  const allGenres = useSelector((state) => state.genres);
+  useEffect(() => {
+    dispatch(actions.loadApiGames());
+    dispatch(actions.getGenres());
+  }, []);
   return (
-    <div className='App'>
+    <div className={style.App}>
+      <Navbar />
       <Switch>
-        {/* <LandingPage /> */}
-        {/* <Input placeholder='mensaje' width='50%' label='Name' type='checkbox' value='somevalue' /> */}
-        {/* <Button color='primary' text='hazne click' />
-      <Button color='info' text='click' /> */}
-        <Home />
+        <Route exact path='/' render={() => <LandingPage />} />
+        <Route exact path='/home' render={() => <Home />} />
+        {/* <Route exact path='/videogame/:id' render={(id) => <MovieDetail id={id} />} /> */}
       </Switch>
     </div>
   );

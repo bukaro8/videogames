@@ -39,17 +39,6 @@
 .videoBg {
   position: absolute;
 }
-.logoContainer {
-  width: 15rem;
-  height: 10rem;
-  position: absolute;
-
+.buttonContainer {
   z-index: 1;
-  top: 0;
-  left: 0;
-}
-.logo {
-  width: 100%;
-  position: absolute;
-  top: 0;
 }

@@ -20,12 +20,12 @@ const LandingPage = () => {
           Videogames
           <br /> Library
         </h1>
+      </article>
+      <div className={styles.buttonContainer}>
         <Link to='/home'>
           <Button color='light' text='EXPLORE' />
         </Link>
-
-        {/* <h2 className={styles.subtitle}>EXPLORE</h2> */}
-      </article>
+      </div>
     </section>
   );
 };

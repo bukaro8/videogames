@@ -28,7 +28,6 @@ const Home = () => {
 
   return (
     <div className={style.mainContainer}>
-      {allVideogames.length === 0 && <Loader />}
       <FilterSort genres={allGenres} />
 
       <div>{renderCards()}</div>
