@@ -1,5 +1,5 @@
 import axios from 'axios';
 const back = axios.create({
-  baseURL: 'localhost:3001',
+  baseURL: 'http://localhost:3001',
 });
 export default back;

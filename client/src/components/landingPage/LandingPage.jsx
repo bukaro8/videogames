@@ -1,13 +1,12 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import videoBg from '../../assets/images/videoBg.mp4';
 import styles from './LandingPage.module.css';
 import Button from '../utilities/Button/Button';
-import Navbar from '../Navbar/Navbar';
+
 const LandingPage = () => {
   return (
     <section className={styles.mainContainer}>
-      <Navbar />
       <video
         className={styles.videoBg}
         src={videoBg}
@@ -21,9 +20,9 @@ const LandingPage = () => {
           Videogames
           <br /> Library
         </h1>
-        <a href='https://www.google.com/'>
+        <Link to='/home'>
           <Button color='light' text='EXPLORE' />
-        </a>
+        </Link>
 
         {/* <h2 className={styles.subtitle}>EXPLORE</h2> */}
       </article>

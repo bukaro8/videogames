@@ -1,6 +1,6 @@
 import { CLEAR_SEARCH_BY_ID } from '../action-types';
 
-export const clearSearchByName = () => {
+export const clearSearchById = () => {
   return async (dispatch, getState) => {
     try {
       dispatch({
