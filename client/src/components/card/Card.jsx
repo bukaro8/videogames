@@ -4,7 +4,7 @@ import uniqid from 'uniqid';
 import { Link } from 'react-router-dom';
 const Card = ({ name, image, genres, id }) => {
   return (
-    <Link to={`videogames/${id}`}>
+    <Link to={`videogame/$id`}>
       <article className={style.mainContainer}>
         <picture>
           <img src={image} alt={image} />
