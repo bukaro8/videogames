@@ -25,7 +25,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(actions.loadApiGames());
     dispatch(actions.getGenres());
-  }, []);
+  }, [dispatch, allVideogames]);
 
   return (
     <div className={style.mainContainer}>

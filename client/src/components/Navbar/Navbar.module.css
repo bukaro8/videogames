@@ -1,15 +1,17 @@
 .nav {
   display: flex;
+  flex-direction: column;
   align-items: center;
   position: fixed;
   top: 0;
   left: 0;
   background-color: #221a367c;
-  width: 97.5vw;
+  width: 100vw;
   box-sizing: border-box;
   justify-content: space-between;
-  height: 6rem;
+  height: fit-content;
   z-index: 1;
+  transition: 0.25s;
 }
 .logoContainer {
   margin-inline-start: 2rem;
@@ -18,7 +20,7 @@
   justify-content: center;
   align-items: center;
   width: 10rem;
-  height: 6rem;
+  height: 5rem;
 }
 ul {
   min-width: 40%;
