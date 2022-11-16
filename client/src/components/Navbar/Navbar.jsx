@@ -1,19 +1,27 @@
 import React from 'react';
 import styles from './Navbar.module.css';
 import logo from '../../assets/images/logo.png';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import FilterSort from '../Filter-Sort/FilterSort';
 const Navbar = () => {
+  const allGenres = useSelector((state) => state.genres);
   return (
-    <nav>
-      <div className={styles.logoContainer}>
-        <img className={styles.logo} src={logo} alt='logo' />
-      </div>
+    <nav className={styles.nav}>
       <ul>
-        <Link to='/home'>Home</Link>
-        <Link to='/videogames'>Add Videogame</Link>
-        <Link to=''>find Videogame</Link>
-        <Link to=''>edit Videogame</Link>
+        <NavLink className={styles.navLink} to='/home'>
+          <div className={styles.logoContainer}>
+            <img className={styles.logo} src={logo} alt='logo' />
+          </div>
+        </NavLink>
+        <NavLink className={styles.navLink} to='/videogames/form'>
+          Add Game
+        </NavLink>
+        <li className={styles.navLink} to=''>
+          Find Game
+        </li>
       </ul>
+      <FilterSort genres={allGenres} />
     </nav>
   );
 };

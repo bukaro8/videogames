@@ -1,3 +1,13 @@
+.mainContainer {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #252323;
+}
 .title {
   font-size: 5vw;
   font-family: var(--mainFont);
@@ -14,22 +24,12 @@
   color: var(--light);
   width: fit-content;
 }
-.mainContainer {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #252323;
-}
 .innerContainer {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  z-index: 1;
+  z-index: 2;
   height: 30%;
   background-color: #25232329;
   border-radius: 10%;
@@ -37,8 +37,9 @@
   /* border: 1px solid white; */
 }
 .videoBg {
-  position: absolute;
+  position: fixed;
+  z-index: 1;
 }
 .buttonContainer {
-  z-index: 1;
+  z-index: 2;
 }

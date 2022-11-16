@@ -1,17 +1,43 @@
-nav {
-  z-index: 1;
+.nav {
+  display: flex;
+  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
   background-color: #221a367c;
-  width: 100vw;
-  /* height: 10rem; */
+  width: 97.5vw;
+  box-sizing: border-box;
+  justify-content: space-between;
+  height: 6rem;
+  z-index: 1;
 }
 .logoContainer {
+  margin-inline-start: 2rem;
   margin-block-start: 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 12rem;
-  height: 8rem;
+  width: 10rem;
+  height: 6rem;
+}
+ul {
+  min-width: 40%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: var(--light);
+  width: fit-content;
+  font-size: 150%;
+  font-family: var(--textFont);
+  font-weight: bolder;
+  margin-inline-end: 3rem;
+}
+.navLink {
+  margin-inline-end: 1rem;
+}
+li {
+  cursor: pointer;
+}
+.activeLink {
+  border-bottom: 1px solid var(--light);
 }

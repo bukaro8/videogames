@@ -18,12 +18,12 @@ const bringPlatform = async (data) => {
 
 // bringDescriptionById(4828);test
 const videogameObj = async (data) => {
-  const description = await bringDescriptionById(data.id);
+  // const description = await bringDescriptionById(data.id);//!use this if you want to create bring all the descriptons
   const platforms = await bringPlatform(data);
   return {
     id: data.id,
     name: data.name,
-    description: description,
+    // description: description,//!descomentar
     released: data.released,
     rating: data.rating,
     createdInDb: data.createdInDb,
