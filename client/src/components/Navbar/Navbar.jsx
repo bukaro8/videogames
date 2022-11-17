@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 import FilterSort from '../Filter-Sort/FilterSort';
 import SearchBar from './SearchBar';
 const Navbar = () => {
-  const [searchbarActive, setSearchbarActive] = useState(true);
+  const [searchbarActive, setSearchbarActive] = useState(false);
   const allGenres = useSelector((state) => state.genres);
   return (
     <nav className={styles.nav}>

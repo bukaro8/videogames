@@ -128,6 +128,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         foundVideogameByNameMirror: [],
         foundVideogameByName: [],
+        foundVideogameById: [],
       };
     case CLEAR_SEARCH_BY_ID:
       return {
