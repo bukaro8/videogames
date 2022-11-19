@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import style from './FilterSort.module.css';
 import actions from '../../REDUX/actions/index.js';

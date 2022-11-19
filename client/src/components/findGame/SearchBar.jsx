@@ -8,7 +8,7 @@ import Card from '../card/Card.jsx';
 const SearchBar = () => {
   const dispatch = useDispatch();
   const [gameToFind, setGameToFind] = useState('');
-  const foundGames = useSelector((state) => state.foundVideogameByName);
+  // const foundGames = useSelector((state) => state.foundVideogameByName);
   const foundGamesMirror = useSelector(
     (state) => state.foundVideogameByNameMirror
   );
@@ -20,6 +20,7 @@ const SearchBar = () => {
   };
   useEffect(() => {
     dispatch(actions.getGenres());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //*============<<paging>>==========
