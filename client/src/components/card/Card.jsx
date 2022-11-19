@@ -14,7 +14,7 @@ const Card = ({ name, image, genres, id }) => {
           <h3 className={style.title}>{name}</h3>
           <div className={style.genresContianer}>
             {genres.map((el) => (
-              <span key={uniqid()}>{el.name}</span>
+              <span key={uniqid()}>{el}</span>
             ))}
           </div>
         </div>

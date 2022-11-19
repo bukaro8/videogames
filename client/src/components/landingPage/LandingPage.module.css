@@ -7,6 +7,8 @@
   justify-content: center;
   align-items: center;
   background-color: #252323;
+  margin-top: -8rem;
+  /* overflow: hidden; */
 }
 .title {
   font-size: 5vw;

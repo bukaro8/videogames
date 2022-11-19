@@ -5,7 +5,7 @@
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
-  padding-block-start: 12rem;
+  padding-block-start: 2rem;
   padding-inline: 5rem;
   box-sizing: border-box;
 }

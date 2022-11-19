@@ -72,11 +72,13 @@ module.exports = {
         platform,
         background_image,
       });
+
       genres.forEach(async (el) => {
         let genreToAdd = await Genre.findOne({ where: { name: el } });
         await newVideogame.addGenre(genreToAdd);
       });
-      res.status(200).json(newVideogame);
+
+      res.status(200).send(newVideogame);
     } catch (error) {
       return res.status(404).send({ error: error.message });
     }

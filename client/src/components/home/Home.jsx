@@ -11,12 +11,13 @@ import Paging from '../Paging.jsx';
 const Home = () => {
   const dispatch = useDispatch();
   const allVideogames = useSelector((state) => state.allVideogames);
+  const allVideogamesMirror = useSelector((state) => state.allVideogamesMirror);
   //*============<<paging>>==========
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage] = useState(15); //*this is a fixed value
   const lastCardIndex = currentPage * cardsPerPage;
   const firstCardIndex = lastCardIndex - cardsPerPage;
-  const currentCards = allVideogames.slice(firstCardIndex, lastCardIndex);
+  const currentCards = allVideogamesMirror.slice(firstCardIndex, lastCardIndex);
   const pageFn = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -41,11 +42,12 @@ const Home = () => {
   useEffect(() => {
     dispatch(actions.loadApiGames());
     dispatch(actions.getGenres());
+    dispatch(actions.clearSearchByName());
   }, []);
 
   return (
     <div>
-      {allVideogames.length === 0 ? (
+      {allVideogamesMirror.length === 0 ? (
         <Loader />
       ) : (
         <div className={style.mainContainer}>
@@ -53,10 +55,9 @@ const Home = () => {
           <section className={style.cardsContainer}>{renderCards()}</section>
           <Paging
             cardsPerPage={cardsPerPage}
-            allVideogames={allVideogames.length}
+            allVideogames={allVideogamesMirror.length}
             page={pageFn}
           />
-          {console.log(currentPage)}
         </div>
       )}
     </div>

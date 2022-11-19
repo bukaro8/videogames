@@ -1,34 +1,52 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './Navbar.module.css';
 import logo from '../../assets/images/logo.png';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import FilterSort from '../Filter-Sort/FilterSort';
-import SearchBar from './SearchBar';
+
 const Navbar = () => {
-  const [searchbarActive, setSearchbarActive] = useState(false);
   const allGenres = useSelector((state) => state.genres);
   return (
-    <nav className={styles.nav}>
-      <ul>
+    <div className={styles.mainContainer}>
+      <nav className={styles.nav}>
         <NavLink className={styles.navLink} to='/home'>
           <div className={styles.logoContainer}>
             <img className={styles.logo} src={logo} alt='logo' />
           </div>
         </NavLink>
-        <NavLink className={styles.navLink} to='/videogames/form'>
-          Add Game
-        </NavLink>
-        <li
-          className={styles.navLink}
-          onClick={() => setSearchbarActive(!searchbarActive)}
-        >
-          Find Game
-        </li>
-      </ul>
+        <ul>
+          <NavLink
+            style={(isActive) => ({
+              borderBottom: isActive && '1px solid white',
+            })}
+            className={styles.navLink}
+            to='/home'
+          >
+            Home
+          </NavLink>
+          <NavLink
+            style={(isActive) => ({
+              borderBottom: isActive && '1px solid white',
+            })}
+            className={styles.navLink}
+            to='/videogames/form'
+          >
+            Add Game
+          </NavLink>
+          <NavLink
+            style={(isActive) => ({
+              borderBottom: isActive && '1px solid white',
+            })}
+            className={styles.navLink}
+            to='/videogames/find'
+          >
+            Find Game
+          </NavLink>
+        </ul>
+      </nav>
       <FilterSort genres={allGenres} />
-      {searchbarActive && <SearchBar />}
-    </nav>
+    </div>
   );
 };
 

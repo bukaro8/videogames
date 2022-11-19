@@ -8,6 +8,8 @@ import {
   SORT_BY_NAME,
   CLEAR_SEARCH_BY_NAME,
   CLEAR_SEARCH_BY_ID,
+  FILTER_VIDEOGAME_BY_CREATION,
+  FILTER_VIDEOGAME_BY_GENRE,
 } from '../action-types/index.js';
 
 const initialState = {
@@ -27,6 +29,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         allVideogames: action.payload,
+        allVideogamesMirror: action.payload,
       };
     case ADD_VIDEOGAME:
       return {
@@ -37,6 +40,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         foundVideogameByName: action.payload,
+        foundVideogameByNameMirror: action.payload,
       };
     case FIND_BY_ID:
       return {
@@ -121,6 +125,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         allVideogamesMirror: sorted,
+        allVideogames: sorted,
         foundVideogameByNameMirror: sorted,
       };
     case CLEAR_SEARCH_BY_NAME:
@@ -134,6 +139,41 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         foundVideogameById: [],
+      };
+    case FILTER_VIDEOGAME_BY_CREATION:
+      const allVideogames = state.allVideogames;
+      const filtered =
+        action.payload === 'all'
+          ? allVideogames
+          : action.payload === 'true'
+          ? allVideogames.filter((el) => el.createdInDb === true)
+          : allVideogames.filter((el) => el.createdInDb === false);
+
+      return {
+        ...state,
+        allVideogames: filtered,
+      };
+
+    case FILTER_VIDEOGAME_BY_GENRE:
+      let filterByGenre;
+      if (action.payload !== 'all') {
+        state.foundVideogameByName.length > 0
+          ? (filterByGenre = state.foundVideogameByName.filter((ele) =>
+              ele.genres.includes(action.payload)
+            ))
+          : (filterByGenre = state.allVideogames.filter((ele) =>
+              ele.genres.includes(action.payload)
+            ));
+      } else {
+        state.foundVideogameByName.length
+          ? (filterByGenre = state.foundVideogameByName)
+          : (filterByGenre = state.allVideogames);
+      }
+      // console.log(filterByGenre);
+      return {
+        ...state,
+        allVideogamesMirror: filterByGenre,
+        foundVideogameByNameMirror: filterByGenre,
       };
 
     default:

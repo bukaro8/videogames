@@ -26,10 +26,10 @@ const videogameObj = async (data) => {
     // description: description,//!descomentar
     released: data.released,
     rating: data.rating,
-    createdInDb: data.createdInDb,
+    createdInDb: false,
     background_image: data.background_image,
     platforms: platforms,
-    genres: data.genres,
+    genres: data.genres.map((el) => el.name),
   };
 };
 

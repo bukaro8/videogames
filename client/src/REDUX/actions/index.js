@@ -7,6 +7,8 @@ import { sortByRating } from './sortByRating.js';
 import { sortByName } from './sortByName.js';
 import { clearSearchByName } from './clearSearchByName.js';
 import { clearSearchById } from './clearSearchById.js';
+import { filterByCreation } from './filterByCreation.js';
+import { filterByGenre } from './filterByGenre.js';
 const actions = {
   loadApiGames,
   addVideogame,
@@ -17,5 +19,7 @@ const actions = {
   sortByName,
   clearSearchByName,
   clearSearchById,
+  filterByCreation,
+  filterByGenre,
 };
 export default actions;
