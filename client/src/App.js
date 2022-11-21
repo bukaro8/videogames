@@ -7,11 +7,15 @@ import { Switch, Route } from 'react-router-dom';
 
 import Navbar from './components/Navbar/Navbar';
 import SearchBar from './components/findGame/SearchBar';
-
+import { useState } from 'react';
 function App() {
+  const [fakeState, setFakeState] = useState();
+  const trigger = (par) => {
+    setFakeState(par);
+  };
   return (
     <div className={style.App}>
-      <Navbar />
+      <Navbar trigger={trigger} />
       <Switch>
         <Route exact path='/' render={() => <LandingPage />} />
         <Route exact path='/home' render={() => <Home />} />

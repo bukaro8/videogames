@@ -84,9 +84,14 @@ const rootReducer = (state = initialState, action) => {
 
     case SORT_BY_NAME:
       let sorted;
+      if (action.payload === 'none') {
+        state.foundVideogameByNameMirror.length > 0
+          ? (sorted = state.foundVideogameByNameMirror)
+          : (sorted = state.allVideogamesMirror);
+      }
       if (action.payload === 'asc') {
         state.foundVideogameByNameMirror.length > 0
-          ? (sorted = state.foundVideogameByName.sort((a, b) => {
+          ? (sorted = state.foundVideogameByNameMirror.sort((a, b) => {
               if (a.name.toLowerCase() > b.name.toLowerCase()) {
                 return 1;
               }
@@ -95,7 +100,7 @@ const rootReducer = (state = initialState, action) => {
               }
               return 0;
             }))
-          : (sorted = state.allVideogames.sort((a, b) => {
+          : (sorted = state.allVideogamesMirror.sort((a, b) => {
               if (a.name.toLowerCase() > b.name.toLowerCase()) {
                 return 1;
               }
@@ -106,8 +111,8 @@ const rootReducer = (state = initialState, action) => {
             }));
       }
       if (action.payload === 'desc') {
-        state.foundVideogameByName
-          ? (sorted = state.foundVideogameByName.sort((a, b) => {
+        state.foundVideogameByNameMirror.length
+          ? (sorted = state.foundVideogameByNameMirror.sort((a, b) => {
               if (a.name.toLowerCase() > b.name.toLowerCase()) {
                 return -1;
               }
@@ -116,7 +121,7 @@ const rootReducer = (state = initialState, action) => {
               }
               return 0;
             }))
-          : (sorted = state.allVideogames.sort((a, b) => {
+          : (sorted = state.allVideogamesMirror.sort((a, b) => {
               if (a.name.toLowerCase() > b.name.toLowerCase()) {
                 return -1;
               }
@@ -126,10 +131,9 @@ const rootReducer = (state = initialState, action) => {
               return 0;
             }));
       }
-      // console.log(sorted);
+
       return {
         ...state,
-
         allVideogamesMirror: sorted,
         foundVideogameByNameMirror: sorted,
       };

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import FilterSort from '../Filter-Sort/FilterSort';
 
-const Navbar = () => {
+const Navbar = ({ trigger }) => {
   const allGenres = useSelector((state) => state.genres);
   return (
     <div className={styles.mainContainer}>
@@ -45,7 +45,7 @@ const Navbar = () => {
           </NavLink>
         </ul>
       </nav>
-      <FilterSort genres={allGenres} />
+      <FilterSort genres={allGenres} trigger={trigger} />
     </div>
   );
 };

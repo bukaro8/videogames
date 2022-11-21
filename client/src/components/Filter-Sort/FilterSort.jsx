@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-
+import uniqid from 'uniqid';
 import { useDispatch } from 'react-redux';
 import style from './FilterSort.module.css';
 import actions from '../../REDUX/actions/index.js';
-const FilterSort = ({ genres }) => {
+const FilterSort = ({ genres, trigger }) => {
   const [fakeState, setFakeState] = useState();
   const dispatch = useDispatch();
   const genresList = () => {
-    return genres.map((el, index) => (
-      <option key={`${index}genres`} value={el.name}>
+    return genres.map((el) => (
+      <option key={uniqid()} value={el.name}>
         {el.name}
       </option>
     ));
@@ -28,8 +28,8 @@ const FilterSort = ({ genres }) => {
   };
   const handleOnChangeAlpha = (e) => {
     e.preventDefault();
+    trigger(e.target.value);
     dispatch(actions.sortByName(e.target.value));
-    setFakeState('a');
   };
 
   return (
