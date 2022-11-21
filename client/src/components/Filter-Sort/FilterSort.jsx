@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 import { useDispatch } from 'react-redux';
 import style from './FilterSort.module.css';
 import actions from '../../REDUX/actions/index.js';
-
 const FilterSort = ({ genres }) => {
+  const [fakeState, setFakeState] = useState();
   const dispatch = useDispatch();
   const genresList = () => {
     return genres.map((el, index) => (
@@ -21,11 +22,21 @@ const FilterSort = ({ genres }) => {
     e.preventDefault();
     dispatch(actions.filterByGenre(e.target.value));
   };
+  const handleOnChangeRating = (e) => {
+    e.preventDefault();
+    dispatch(actions.filterByRating(e.target.value));
+  };
+  const handleOnChangeAlpha = (e) => {
+    e.preventDefault();
+    dispatch(actions.sortByName(e.target.value));
+    setFakeState('a');
+  };
+
   return (
     <section className={style.mainContainer}>
       <article>
         <label className={style.label}>Sort by Name:</label>
-        <select name='alphabetically'>
+        <select name='alphabetically' onChange={(e) => handleOnChangeAlpha(e)}>
           <option value='none'>--</option>
           <option value='asc'>A-Z</option>
           <option value='desc'>Z-A</option>
@@ -35,7 +46,7 @@ const FilterSort = ({ genres }) => {
       <article>
         <div>
           <label className={style.label}>Sort by Rating:</label>
-          <select name='rating'>
+          <select name='rating' onChange={(e) => handleOnChangeRating(e)}>
             <option value='none'>--</option>
             <option value='asc'>ASC</option>
             <option value='desc'>DESC</option>
@@ -46,7 +57,7 @@ const FilterSort = ({ genres }) => {
       <article>
         <label className={style.label}>Filter by Creation:</label>
         <select name='creation' onChange={(e) => handleOnChangeCreation(e)}>
-          <option value='none'>--</option>
+          <option value='all'>--</option>
           <option value='all'>All</option>
           <option value='true'>Created on Db</option>
           <option value='false'>Load from api</option>

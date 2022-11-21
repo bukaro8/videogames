@@ -15,7 +15,7 @@ function App() {
       <Switch>
         <Route exact path='/' render={() => <LandingPage />} />
         <Route exact path='/home' render={() => <Home />} />
-
+        {/* <Route exact path={`/${}`} */}
         <Route exact path='/videogames/find' render={() => <SearchBar />} />
         {/* <Route exact path='/videogame/:id' render={(id) => <MovieDetail id={id} />} /> */}
       </Switch>

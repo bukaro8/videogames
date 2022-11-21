@@ -12,7 +12,7 @@ const bringDescriptionById = async (id) => {
   return description;
 };
 const bringPlatform = async (data) => {
-  const platformsArr = await data.platforms.map((ele) => ele.platform.name);
+  const platformsArr = await data.platforms?.map((ele) => ele.platform.name);
   return platformsArr;
 };
 
@@ -74,7 +74,7 @@ const getDbInfo = async () => {
 const getAllGames = async () => {
   const apiInfo = await getApiInfo();
   const dbInfo = await getDbInfo();
-  const totalInfo = dbInfo.concat(apiInfo);
+  const totalInfo = await dbInfo.concat(apiInfo);
   // console.log(totalInfo);
   return totalInfo;
 };
@@ -95,7 +95,7 @@ const findOnDb = async (name) => {
   );
   return result;
 };
-
+findOnApi('juego');
 module.exports = {
   async videogamesController(req, res) {
     const totalGames = await getAllGames();

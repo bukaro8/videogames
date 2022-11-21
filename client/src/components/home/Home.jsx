@@ -10,8 +10,8 @@ import Button from '../utilities/Button/Button.jsx';
 import Paging from '../Paging.jsx';
 const Home = () => {
   const dispatch = useDispatch();
-  // const allVideogames = useSelector((state) => state.allVideogames);
-  const allVideogamesMirror = useSelector((state) => state.allVideogamesMirror);
+
+  let allVideogamesMirror = useSelector((state) => state.allVideogamesMirror);
   //*============<<paging>>==========
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage] = useState(15); //*this is a fixed value

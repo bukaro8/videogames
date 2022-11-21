@@ -1,8 +1,8 @@
 import React from 'react';
 import style from './Card.module.css';
 import uniqid from 'uniqid';
-import noImage from '../../assets/images/noImage.jpg';
 import { Link } from 'react-router-dom';
+import noImage from '../../assets/images/noImage.jpg';
 const Card = ({ name, image, genres, id }) => {
   return (
     <Link to={`videogame/${id}`}>
@@ -12,7 +12,7 @@ const Card = ({ name, image, genres, id }) => {
         </picture>
         <div className={style.overlay}>
           <h3 className={style.title}>{name}</h3>
-          <div className={style.genresContianer}>
+          <div className={style.genresContainer}>
             {genres.map((el) => (
               <span key={uniqid()}>{el}</span>
             ))}

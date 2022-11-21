@@ -4,12 +4,12 @@ import {
   FIND_BY_NAME,
   FIND_BY_ID,
   GET_GENRES,
-  SORT_BY_RATING,
   SORT_BY_NAME,
   CLEAR_SEARCH_BY_NAME,
   CLEAR_SEARCH_BY_ID,
   FILTER_VIDEOGAME_BY_CREATION,
   FILTER_VIDEOGAME_BY_GENRE,
+  FILTER_VIDEOGAME_BY_RATING,
 } from '../action-types/index.js';
 
 const initialState = {
@@ -52,23 +52,27 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         genres: action.payload,
       };
-    case SORT_BY_RATING:
+    case FILTER_VIDEOGAME_BY_RATING:
       let sortedByRating;
+      action.payload === 'none' &&
+        (state.foundVideogameByName.length
+          ? (sortedByRating = state.foundVideogameByNameMirror)
+          : (sortedByRating = state.allVideogamesMirror));
       if (action.payload === 'asc') {
-        state.foundVideogameByName
-          ? (sortedByRating = [...state.foundVideogameByName].sort(
+        state.foundVideogameByName.length
+          ? (sortedByRating = [...state.foundVideogameByNameMirror].sort(
               (a, b) => b.rating - a.rating
             ))
-          : (sortedByRating = [...state.allVideogames].sort(
+          : (sortedByRating = [...state.allVideogamesMirror].sort(
               (a, b) => b.rating - a.rating
             ));
       }
       if (action.payload === 'desc') {
-        state.foundVideogameByName
-          ? (sortedByRating = [...state.foundVideogameByName].sort(
+        state.foundVideogameByName.length
+          ? (sortedByRating = [...state.foundVideogameByNameMirror].sort(
               (a, b) => a.rating - b.rating
             ))
-          : (sortedByRating = [...state.allVideogames].sort(
+          : (sortedByRating = [...state.allVideogamesMirror].sort(
               (a, b) => a.rating - b.rating
             ));
       }
@@ -81,8 +85,8 @@ const rootReducer = (state = initialState, action) => {
     case SORT_BY_NAME:
       let sorted;
       if (action.payload === 'asc') {
-        state.foundVideogameByName
-          ? (sorted = [...state.foundVideogameByName].sort((a, b) => {
+        state.foundVideogameByNameMirror.length > 0
+          ? (sorted = state.foundVideogameByName.sort((a, b) => {
               if (a.name.toLowerCase() > b.name.toLowerCase()) {
                 return 1;
               }
@@ -91,7 +95,7 @@ const rootReducer = (state = initialState, action) => {
               }
               return 0;
             }))
-          : (sorted = [...state.allVideogames].sort((a, b) => {
+          : (sorted = state.allVideogames.sort((a, b) => {
               if (a.name.toLowerCase() > b.name.toLowerCase()) {
                 return 1;
               }
@@ -103,7 +107,7 @@ const rootReducer = (state = initialState, action) => {
       }
       if (action.payload === 'desc') {
         state.foundVideogameByName
-          ? (sorted = [...state.foundVideogameByName].sort((a, b) => {
+          ? (sorted = state.foundVideogameByName.sort((a, b) => {
               if (a.name.toLowerCase() > b.name.toLowerCase()) {
                 return -1;
               }
@@ -112,7 +116,7 @@ const rootReducer = (state = initialState, action) => {
               }
               return 0;
             }))
-          : (sorted = [...state.allVideogames].sort((a, b) => {
+          : (sorted = state.allVideogames.sort((a, b) => {
               if (a.name.toLowerCase() > b.name.toLowerCase()) {
                 return -1;
               }
@@ -122,10 +126,11 @@ const rootReducer = (state = initialState, action) => {
               return 0;
             }));
       }
+      // console.log(sorted);
       return {
         ...state,
+
         allVideogamesMirror: sorted,
-        allVideogames: sorted,
         foundVideogameByNameMirror: sorted,
       };
     case CLEAR_SEARCH_BY_NAME:
@@ -141,17 +146,33 @@ const rootReducer = (state = initialState, action) => {
         foundVideogameById: [],
       };
     case FILTER_VIDEOGAME_BY_CREATION:
-      const allVideogames = state.allVideogames;
-      const filtered =
-        action.payload === 'all'
-          ? allVideogames
-          : action.payload === 'true'
-          ? allVideogames.filter((el) => el.createdInDb === true)
-          : allVideogames.filter((el) => el.createdInDb === false);
-
+      // const allVideogames = state.allVideogames;
+      let filtered;
+      if (action.payload === 'all') {
+        state.foundVideogameByName > 0
+          ? (filtered = state.foundVideogameByName)
+          : (filtered = state.allVideogames);
+      } else if (action.payload === 'true') {
+        state.foundVideogameByName.length
+          ? (filtered = state.foundVideogameByName.filter(
+              (el) => el.createdInDb === true
+            ))
+          : (filtered = state.allVideogames.filter(
+              (el) => el.createdInDb === true
+            ));
+      } else {
+        state.foundVideogameByName.length
+          ? (filtered = state.foundVideogameByName.filter(
+              (el) => el.createdInDb === false
+            ))
+          : (filtered = state.allVideogames.filter(
+              (el) => el.createdInDb === false
+            ));
+      }
       return {
         ...state,
-        allVideogames: filtered,
+        allVideogamesMirror: filtered,
+        foundVideogameByNameMirror: filtered,
       };
 
     case FILTER_VIDEOGAME_BY_GENRE:

@@ -38,7 +38,7 @@
 .overlay:hover > * {
   transform: translateY(0);
 }
-.genresContianer {
+.genresContainer {
   font-family: var(--mainFont);
   font-size: 1.4rem;
   display: flex;
