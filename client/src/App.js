@@ -1,15 +1,16 @@
+import { useState } from 'react';
 import './reset.css';
 import './variables.css';
 import style from './App.module.css';
 import Home from './components/home/Home';
 import LandingPage from './components/landingPage/LandingPage';
 import { Switch, Route } from 'react-router-dom';
-
+import CardDetail from './components/card-detail/CardDetail';
 import Navbar from './components/Navbar/Navbar';
 import SearchBar from './components/findGame/SearchBar';
-import { useState } from 'react';
+import AddVideogame from './components/addVideogame/AddVideogame';
 function App() {
-  const [fakeState, setFakeState] = useState();
+  const [, setFakeState] = useState();
   const trigger = (par) => {
     setFakeState(par);
   };
@@ -19,9 +20,17 @@ function App() {
       <Switch>
         <Route exact path='/' render={() => <LandingPage />} />
         <Route exact path='/home' render={() => <Home />} />
-        {/* <Route exact path={`/${}`} */}
+        <Route
+          exact
+          path={`/videogames/form`}
+          render={() => <AddVideogame />}
+        />
         <Route exact path='/videogames/find' render={() => <SearchBar />} />
-        {/* <Route exact path='/videogame/:id' render={(id) => <MovieDetail id={id} />} /> */}
+        <Route
+          exact
+          path='/videogame/:id'
+          render={(id) => <CardDetail id={id} />}
+        />
       </Switch>
     </div>
   );
