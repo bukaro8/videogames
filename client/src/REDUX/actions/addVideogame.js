@@ -4,6 +4,7 @@ import { ADD_VIDEOGAME } from '../action-types';
 export const addVideogame = (values) => {
   return async (dispatch, getState) => {
     try {
+      // if(values.name)
       const response = await back.post('/videogames', values);
       dispatch({
         type: ADD_VIDEOGAME,

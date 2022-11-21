@@ -95,7 +95,7 @@ const findOnDb = async (name) => {
   );
   return result;
 };
-findOnApi('juego');
+
 module.exports = {
   async videogamesController(req, res) {
     const totalGames = await getAllGames();
