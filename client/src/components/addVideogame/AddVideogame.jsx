@@ -14,53 +14,41 @@ const checkIfValidDate = (str) => {
   return dateRegexp.test(str);
 };
 
-const isURL = (str) => {
-  var pattern = /^https?:\/\/.*\/.*\.(png|gif|webp|jpeg|jpg)\??.*$/gim;
-  return pattern.test(str);
-};
-
-const containsSpecialChars = (str) => {
-  const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-  return specialChars.test(str);
-};
 const validate = (values) => {
-  let error = {};
+  let errors = {};
   if (!values.name) {
-    error.name = 'Name is required';
-  } else if (containsSpecialChars(values.name)) {
-    error.name = 'Name does not allow special characters';
+    errors.name = 'Name is required';
   } else if (values.name.trim() === '') {
-    error.name = 'Name can not be empty';
+    errors.name = 'Name can not be empty';
   }
   if (!values.description) {
-    error.description = 'Description is required';
+    errors.description = 'Description is required';
   } else if (values.description.length > 200) {
-    error.description = 'Description can only have max 200 characters';
+    errors.description = 'Description can only have max 200 characters';
   }
   if (checkIfValidDate(values.released) === false) {
-    error.released = 'Invalid date';
+    errors.released = 'Invalid date ';
   }
   if (values.rating > 5) {
-    error.rating = 'Rating must be lower than 5';
-  } else if (values.rating < 0) {
-    error.rating = 'Rating must be 1 or over';
+    errors.rating = 'Rating must be lower than 5';
+  } else if (values.rating <= 0) {
+    errors.rating = 'Rating must be 1 or over';
   } else if (isNaN(parseInt(values.rating))) {
-    error.rating = 'only Numbers allowed';
+    errors.rating = 'only Numbers allowed';
   }
-  if (values.image) {
-    if (isURL(values.image) === false) {
-      error.image = 'Invalid URL';
-    }
+  if (!values.background_image) {
+    errors.background_image = 'Missing URL';
   }
   if (values.genres.length < 1) {
-    error.genres = 'You have to choose at least one genre';
+    errors.genres = 'You have to choose at least one genre';
   }
-  if (values.platforms.length < 1) {
-    error.platforms = 'You have to choose at least one platform';
+  if (values.platform.length < 1) {
+    errors.platforms = 'You have to choose at least one platform';
   }
 
-  return error;
+  return errors;
 };
+
 const AddVideogame = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -95,38 +83,58 @@ const AddVideogame = () => {
   };
   const onSubmitForm = (e) => {
     e.preventDefault();
-    console.log(values);
     dispatch(actions.addVideogame(values));
     history.push('/home');
   };
-
+  const handleChange = (e) => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    });
+    setErrors(
+      validate({
+        ...values,
+        [e.target.name]: e.target.value,
+      })
+    );
+  };
   return (
     <section className={styles.mainContainer}>
       <h1> Add Videogame </h1>
       <form onSubmit={(e) => onSubmitForm(e)}>
         <input
+          name='name'
           className='input'
           type='text'
           placeholder='Name'
-          onChange={(e) => setValues({ ...values, name: e.target.value })}
+          onChange={(e) => handleChange(e)}
           value={values.name}
+          required
         />
+        {errors.name && <p className={styles.error}>{errors.name}</p>}
         <input
+          name='background_image'
           className='input'
           type='text'
           placeholder='Image URL'
-          onChange={(e) =>
-            setValues({ ...values, background_image: e.target.value })
-          }
+          onChange={(e) => handleChange(e)}
           value={values.background_image}
+          required
         />
+        {errors.background_image && (
+          <p className={styles.error}>{errors.background_image}</p>
+        )}
         <input
+          name='released'
           className='input'
           type='text'
-          placeholder='Release'
-          onChange={(e) => setValues({ ...values, release: e.target.value })}
-          value={values.release}
+          placeholder='Release Date yyyy-mm-dd'
+          onChange={(e) => handleChange(e)}
+          value={values.released}
+          required
         />
+        {errors.released && <p className={styles.error}>{errors.released}</p>}
+
         <div className={styles.checkboxGenres}>
           {/* //?genres */}
           <div className={styles.genresDisplayContainer}>
@@ -140,31 +148,37 @@ const AddVideogame = () => {
             </div>
 
             <select
+              name='genres'
               onChange={(e) =>
                 setValues({
                   ...values,
                   genres: [...values.genres, e.target.value],
                 })
               }
+              required
             >
               <option>Select one or more</option>
               {genresList()}
             </select>
+            {/* {errors.genres && <p className={styles.error}>{errors.genres}</p>} */}
           </div>
         </div>
 
         {/* //?=====genres */}
+
         {/* //?platforms */}
         <div className={styles.genresDisplayContainer}>
           <label className={styles.platformLabel}>Platforms</label>
           <div className={styles.genresDisplayContainer}>
             <select
+              name='platform'
               onChange={(e) =>
                 setValues({
                   ...values,
                   platform: [...values.platform, e.target.value],
                 })
               }
+              required
             >
               <option>Select one or more</option>
               {platformList()}
@@ -174,30 +188,37 @@ const AddVideogame = () => {
                 {el}
               </span>
             ))}
+            {errors.platform && (
+              <p className={styles.error}>{errors.platform}</p>
+            )}
           </div>
         </div>
         <div className={styles.ratingContainer}>
           <label>Rating</label>
           <input
+            name='rating'
             style={{ width: '30%' }}
             className='input inputRating'
             type='number'
             placeholder='Rating'
-            onChange={(e) =>
-              setValues({ ...values, rating: parseFloat(e.target.value) })
-            }
+            onChange={(e) => handleChange(e)}
             value={values.rating}
+            required
           />
+          {errors.rating && <p className={styles.error}>{errors.rating}</p>}
         </div>
         <textarea
+          name='description'
           className='input'
           rows={4}
           placeholder='Description'
-          onChange={(e) =>
-            setValues({ ...values, description: e.target.value })
-          }
+          onChange={(e) => handleChange(e)}
           value={values.description}
+          required
         />
+        {errors.description && (
+          <p className={styles.error}>{errors.description}</p>
+        )}
         <button className={styles.btn} type='submit'>
           Add Game
         </button>

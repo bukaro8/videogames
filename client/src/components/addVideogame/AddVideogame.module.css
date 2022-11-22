@@ -26,6 +26,10 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+.error {
+  background-color: white;
+  color: red;
+}
 input,
 textarea,
 .input {
