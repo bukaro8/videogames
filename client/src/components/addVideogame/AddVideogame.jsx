@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import uniqid from 'uniqid';
 import styles from './AddVideogame.module.css';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import platforms from './platforms.json';
 import actions from '../../REDUX/actions/index.js'; //?addVideogame, getGenres

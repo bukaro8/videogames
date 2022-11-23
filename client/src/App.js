@@ -26,9 +26,10 @@ function App() {
           render={() => <AddVideogame />}
         />
         <Route exact path='/videogames/find' render={() => <SearchBar />} />
+        <Route exact path='/:id' render={(id) => <CardDetail id={id} />} />
         <Route
           exact
-          path='/videogame/:id'
+          path='/videogames/:id'
           render={(id) => <CardDetail id={id} />}
         />
       </Switch>

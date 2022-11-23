@@ -1,10 +1,10 @@
 import back from '../../api/back.js';
 import { FIND_BY_ID } from '../action-types';
 
-export const findById = () => {
+export const findById = (id) => {
   return async (dispatch, getState) => {
     try {
-      const response = await back.get('/videogame/:id');
+      const response = await back.get(`/videogame/${id}`);
       dispatch({
         type: FIND_BY_ID,
         payload: response.data,

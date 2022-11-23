@@ -1,0 +1,90 @@
+.mainContainer {
+  padding-top: 7.2rem;
+  align-self: center;
+  height: fit-content;
+  width: 80vw;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.title {
+  /* background-color: white; */
+  font-family: var(--mainFont);
+  color: var(--light);
+  font-size: 300%;
+  font-weight: bolder;
+}
+.subtitle {
+  font-family: var(--textFont);
+  color: var(--light);
+  font-size: 130%;
+  font-weight: bolder;
+  text-decoration: underline;
+}
+.innerContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--infoTransparent);
+  width: 80%;
+  height: 100vh;
+  padding-top: 7rem;
+  padding-inline: 1rem;
+}
+.innerDetailsContainer {
+  font-size: 160%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--infoTransparent);
+}
+.genreContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--info);
+  border: 1px solid red;
+}
+.genreName {
+  color: var(--light);
+}
+picture {
+  width: 90%;
+  height: 50%;
+}
+img {
+  width: 100%;
+  height: 100%;
+}
+.description {
+  font-size: 160%;
+  color: var(--light);
+  background-color: var(--infoTransparent);
+  padding: 2rem;
+}
+@media only screen and (max-width: 870px) {
+  .mainContainer {
+    width: 100vw;
+    height: 100vh;
+  }
+  .innerContainer {
+    margin-block-start: 8rem;
+    width: 80%;
+    height: 100vh;
+  }
+}
+@media only screen and (max-width: 870px) {
+  .mainContainer {
+    padding-top: 1rem;
+    width: 100vw;
+    height: 100vh;
+  }
+}

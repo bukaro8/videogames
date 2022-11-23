@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import noImage from '../../assets/images/noImage.jpg';
 const Card = ({ name, image, genres, id }) => {
   return (
-    <Link to={`videogame/${id}`}>
+    <Link to={`${id}?${genres}`}>
       <article className={style.mainContainer}>
         <picture>
           <img src={image || noImage} alt={image} />
