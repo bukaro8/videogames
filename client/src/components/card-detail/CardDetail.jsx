@@ -45,7 +45,7 @@ const CardDetail = ({ id }) => {
 
           {/* //?genres */}
           <div className={styles.genresContainer}>
-            <div className={styles.subtitle}>Platforms</div>
+            <div className={styles.subtitle}>Genres</div>
             {genres?.map((el) => (
               <div key={uniqid()} className={styles.genreName}>
                 {el}

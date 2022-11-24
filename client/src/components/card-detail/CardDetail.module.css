@@ -51,7 +51,7 @@
   justify-content: center;
   align-items: center;
   color: var(--info);
-  border: 1px solid red;
+  border: 10px solid red;
 }
 .genreName {
   color: var(--light);
