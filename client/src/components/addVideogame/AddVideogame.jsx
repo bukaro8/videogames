@@ -109,6 +109,7 @@ const AddVideogame = () => {
           placeholder='Name'
           onChange={(e) => handleChange(e)}
           value={values.name}
+          autocomplete='off'
           required
         />
         {errors.name && <p className={styles.error}>{errors.name}</p>}
