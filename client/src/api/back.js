@@ -1,5 +1,5 @@
 import axios from 'axios';
 const back = axios.create({
-	baseURL: 'videogames-production-5367.up.railway.app/',
+	baseURL: 'http://videogames-production-.up.railway.app',
 });
 export default back;
